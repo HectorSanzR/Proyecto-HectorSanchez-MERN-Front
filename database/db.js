@@ -1,10 +1,10 @@
-import { Sequelize } from "sequelize";
+import mongoosse from 'mongoose'
 
-//TODO:
-//estos son los datos de la base de datos  Nombre=database_app Ususario = root y contrase;a = 1234
-const db = new Sequelize('database_app','root','1234',{
-    host:'localhost',
-    dialect: 'mysql'    
-})
+const url = 'mongodb+srv://user_node_cafe:9c7eoZKfgPfIbADo@cluster0.upig8.mongodb.net/mern'
+mongoosse.connect(url)
 
-export default db
+const db = mongoosse.connection
+db.on('open',()=>{console.log('MONGODB is OK!')})
+db.on('error',()=>{console.log('DB is do not work!')})
+
+export default db;

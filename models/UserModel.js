@@ -1,22 +1,25 @@
-import { DataTypes } from "sequelize"
-import db from "../database/db.js"
+import mongoose from "mongoose"
+const Schema = mongoose.Schema;
+
+
 
 //aqui esta el modelo de la base de datos
-const UserModerl = db.define('users',{
-     name : {type: DataTypes.STRING},
-     midde_name : {type: DataTypes.STRING},
-     surname : {type: DataTypes.STRING},
-     second_surname : {type: DataTypes.STRING},
-     born : {type: DataTypes.STRING},
-     address : {type: DataTypes.STRING},
-     city : {type: DataTypes.STRING},
-     country : {type: DataTypes.STRING},
-     email : {type: DataTypes.STRING},
-     gender : {type: DataTypes.STRING},
-     contact : {type: DataTypes.STRING},
-     ocupacy : {type: DataTypes.STRING},
-     active : {type: DataTypes.STRING},
-    
-
-})
-export default UserModerl
+const UserSchema = new Schema(
+     {
+     name : {type:String},
+     midde_name : {type:String},
+     surname : {type:String},
+     second_surname : {type:String},
+     born : {type:String},
+     address : {type:String},
+     city : {type:String},
+     country : {type:String},
+     email : {type:String},
+     gender : {type:String},
+     contact : {type:String},
+     ocupacy : {type:String},
+     active : {type:String}
+    },
+    {collection:'users'}
+    )
+export default mongoose.model('UserModel',UserSchema)

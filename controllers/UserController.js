@@ -7,8 +7,8 @@ import UserModerl from "../models/UserModel.js";
 //mostrar datos
     export const getAllusers = async (req,res) =>{
         try{
-            const users = await UserModerl.findAll()
-            res.json(users)
+            const users = await UserModerl.find()
+            res.status(200).json(users)
         }catch(error){
             res.json({ message:error.message })
         }
@@ -17,10 +17,11 @@ import UserModerl from "../models/UserModel.js";
 // mostrar dato
 export const getUser = async (req,res) =>{
     try{
-        const user = await UserModerl.findAll({
-            where:{id:req.params.id}
+        const id = req.params.id
+         await UserModerl.findById({_id:id}).then((user)=>{
+            res.status(200).json(user)
+
         })
-        res.json(user)
     }catch(error){
         res.json({ message:error.message })
     }
@@ -30,8 +31,8 @@ export const getUser = async (req,res) =>{
 
 export const createUser = async (req,res) =>{
     try{
-        await UserModerl.create(req.body)
-        res.json({
+        await UserModerl.create(req.body)   
+        res.status(200).json({
             "message":"User created"
         })
     }catch(error){
@@ -42,8 +43,9 @@ export const createUser = async (req,res) =>{
 // actualizar
 export const updateUser = async (req,res) =>{
     try {
-        UserModerl.update(req.body,{
-            where:{id: req.params.id}
+        const id = req.params.id
+        await UserModerl.updateOne({_id:id},req.body).then(res =>{
+            console.log(res)
         })
         res.json({
             "message":"The user has been updated"
@@ -58,8 +60,9 @@ export const updateUser = async (req,res) =>{
 
 export const deleteUser = async(req,res) =>{
     try {
-        UserModerl.destroy({
-            where:{id:req.params.id}
+        const id = req.params.id
+        UserModerl.deleteOne({_id:id}).then(res=>{
+            console.log(res)
         })
         res.json({
             "message":"The user has been deleted"
